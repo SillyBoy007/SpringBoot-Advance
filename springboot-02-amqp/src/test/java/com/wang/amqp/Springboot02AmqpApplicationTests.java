@@ -27,7 +27,6 @@ public class Springboot02AmqpApplicationTests {
      */
     @Test
     public void contextLoads() {
-
         //Message需要自己构造一个,定义消息体内容和消息头
        // rabbitTemplate.send(exchange,routingKey,message);
         //object默认当成消息体,只需要传入要发送的对象,自动序列化给mq
@@ -42,7 +41,6 @@ public class Springboot02AmqpApplicationTests {
         Object receive = rabbitTemplate.receiveAndConvert("wang.news"); //接收消息。
         System.out.println(receive.getClass());
         System.out.println(receive);
-
     }
 
     /**
