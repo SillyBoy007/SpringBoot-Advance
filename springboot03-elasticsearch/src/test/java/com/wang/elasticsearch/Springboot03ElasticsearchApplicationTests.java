@@ -1,8 +1,10 @@
 package com.wang.elasticsearch;
 
 
+import com.wang.elasticsearch.bean.Book;
 import com.wang.elasticsearch.bean.People;
 
+import com.wang.elasticsearch.repository.BookRepository;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -18,6 +20,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @RunWith(SpringRunner.class)
@@ -25,7 +28,8 @@ import java.io.IOException;
 public class Springboot03ElasticsearchApplicationTests {
     @Autowired
     JestClient jestClient;
-
+    @Autowired
+    BookRepository bookRepository;
     @Test
     public void JestSave() {
         //1,给ES中的索引保存一个文档
@@ -65,6 +69,22 @@ public class Springboot03ElasticsearchApplicationTests {
     }
 
 
+    @Test
+    public void Booksave(){
+        Book book = new Book();
+        book.setId(1);
+        book.setBookname("Java开发");
+        book.setAuthor("Wang");
+        bookRepository.index(book);
+    }
 
+    @Test
+    public void Bookfind(){
+
+        for (Book book: bookRepository.findByBooknameLike("开")){
+            System.out.println(book);
+        }
+
+    }
 }
 
